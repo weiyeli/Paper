@@ -346,6 +346,10 @@ web3.js是一个库集合，允许开发者使用HTTP，WebSocket或IPC连接与
 
 登录/注册界面可以选择以患者身份登录还是以医生身份登录：
 
+![image-20190422235144444](https://ws1.sinaimg.cn/large/006tNc79gy1g2buk31a0nj30n41buaeb.jpg)
+
+登录成功后进入个人界面：
+
 
 
 ## 问题与解决办法
