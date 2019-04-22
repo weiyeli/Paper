@@ -286,6 +286,20 @@ contract Ehealth {
 
 ### 运行环境
 
+![image-20190422230052961](https://ws2.sinaimg.cn/large/006tNc79gy1g2bt36at1oj30wi0ikwl6.jpg)
+
+本系统的运行环境如下：
+
+操作系统：macOS Mojave 版本10.14.4
+
+处理器：2.2 GHz Intel Core i7
+
+内存：16GB 2400 MHz DDR4
+
+数据库：MongoDB
+
+以太坊客户端：Ganache
+
 ### 开发技术
 
 本系统基于Truffle框架搭建以太坊开发平台，通过Ganache搭建本地私有区块链进行验证，其中智能合约的开发语言为Solidity开发语言。
@@ -325,6 +339,14 @@ Ganache是以太坊开发的个人区块链，可用于部署合同，开发应�
 #### Web3.js
 
 web3.js是一个库集合，允许开发者使用HTTP，WebSocket或IPC连接与本地或远程以太坊节点进行交互。
+
+### 界面设计和演示
+
+本系统主要包括患者端和医生端两部分。
+
+登录/注册界面可以选择以患者身份登录还是以医生身份登录：
+
+
 
 ## 问题与解决办法
 
