@@ -197,13 +197,13 @@ Ethereum中的“交易”指存储来自外部帐户的消息的签名包。交
 
 针对上述问题，本文提出了一种基于区块链的电子病历管理方案，该方案采用以太坊智能合约为跨医疗机构的医疗数据创建去中心化的病历管理系统。该系统可以为用户提供一个全新的、去中心化的病历管理方案，使用区块链来保存管理电子病历。所有存储在这个系统的记录有以下特点：
 
-1. 患者可以管理自己的病历，
+1. 患者可以管理自己的病历
 2. 患者可以将自己病历的权限赋予第三方机构，医生获得权限后可以查看和编辑患者的病历
 3. 利用独特的区块链属性，以及内含的加密模块，能够在处理敏感信息时为用户提供强大的保密技术
 
 ### 拟解决的关键科学问题
 
-去中心化的数据存储。如何保证数据能够安全的存储，不被第三方破解拿到数据，可以由患者自己管理数据，而且不依赖于某个特定的医疗机构。
+去中心化的数据存储。如何保证数据能够安全的存储，不被第三方破解拿到数据，同时满足可以由患者自己管理数据，而且不依赖于某个特定的医疗机构。
 
 数据共享。传统医疗机构间共享数据困难，困难点在于医疗数据的校验、保存和同步[6]。由于访问权限的限制，患者、医生和研究人员在读取和共享医疗数据十分困难，需要大量的权限检查和数据校验的过程。
 
@@ -211,11 +211,78 @@ Ethereum中的“交易”指存储来自外部帐户的消息的签名包。交
 
 ### 整体框架设计
 
+整体框架图如下：
 
+![image-20190422224022025](https://ws2.sinaimg.cn/large/006tNc79gy1g2bshtqcfoj31be0qkq4q.jpg)
+
+流程图如下：
+
+![image-20190422223906144](https://ws3.sinaimg.cn/large/006tNc79gy1g2bsgkm3urj31da0qsjuh.jpg)
+
+客户端采用了iOS平台，设计了一款医疗助手App。患者和医生都可以通过App注册和登录到系统，其中患者登录后可以查看自己的历史病历信息还可以预约挂号，患者预约某个医院相当于将自己的病历的访问控制权限授权给该医院的医生。该医院的医生拿到患者的授权后，可以查看到患者的历史病历信息。医生诊治后，可以在App上给患者新建病历，录入诊治内容，新建的病历会写入到以太坊的区块链中。
 
 ### 智能合约设计
 
+```swift
+contract Ehealth {
+    address payable public patient;
+    string name;
+    string record;
+    string gender;
+    address myaddress;
+    address checker;
+    uint age;
+     
+    constructor(string memory _name, string memory _gender, uint _age) public {
+        name = _name;
+        gender = _gender;
+        age = _age;
+        myaddress  = msg.sender;
+        checker = msg.sender;
+    }
+    
+    modifier check() {
+        require(
+            msg.sender == myaddress || msg.sender == checker,
+            "Only ath-person can do this ops."
+            );
+        _;
+    }
+    
+    modifier check_doc() {
+        require(
+            msg.sender == checker,
+            "Only doc can do this ops."
+            );
+        _;
+    }
+    
+    event makeChange(address _a);
+    
+    function authens(address _checker) public{
+        checker = _checker;
+    }
+    
+    function unAuth() public check{
+        checker = myaddress;
+    }
+    
+    function getName() public view returns(string memory){
+        return name;
+    }
 
+    function getRec() public view check returns(string memory,string memory,uint,string memory){
+        return (name, gender, age,record);
+    }
+    
+    function setRec(string memory _rec) public check{
+        record = _rec;
+        emit makeChange(msg.sender);// who changed it.
+    }   
+}
+```
+
+智能合约是运行在以太坊上的一段代码，用户与智能合约提供的函数交互从而达到读取电子病历和存储电子病历的功能。`address payable public patient;` 存储了患者的账户，代表这份智能合约属于哪一位患者。合约中存储了患者的信息，包括姓名、年龄等。其中最为重要的是record和check两个变量，其中record存储的是病历的内容。前端App将病历的信息转换为json格式的字符串，存储在record中，每一份病历通过一定的标志进行分离。checker存储的是被授权的机构的地址，可以看做医院的凭证，其中checker对应的医院的医生有读取和写入record的权限。其中权限控制的代码在`modifier check()` 函数中，`msg.sender == myaddress || msg.sender == checker,` 这行代码保证了只有当发起人为患者或者是被授权的医院时，才可以访问智能合约中的数据，否则拒绝访问。
 
 ### 运行环境
 
