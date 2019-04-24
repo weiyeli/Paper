@@ -348,7 +348,55 @@ web3.js是一个库集合，允许开发者使用HTTP，WebSocket或IPC连接与
 
 ![image-20190422235144444](https://ws1.sinaimg.cn/large/006tNc79gy1g2buk31a0nj30n41buaeb.jpg)
 
+患者登录：
+
+![image-20190424080616119](https://ws3.sinaimg.cn/large/006tNc79gy1g2degz9titj30mw1bg0w6.jpg)
+
 登录成功后进入个人界面：
+
+![image-20190424081614215](https://ws3.sinaimg.cn/large/006tNc79gy1g2derb74kfj30my1b2djl.jpg)
+
+
+
+患者端主要查看病历和预约挂号两个功能
+
+患者点击查看病历后可以看到自己的历史病历信息，包括就诊的医院名称、医生名称和就诊的时间：
+
+![image-20190424081508023](https://ws4.sinaimg.cn/large/006tNc79gy1g2deq5xwr6j30na1beq79.jpg)
+
+
+
+点击某一行的病历缩略信息可以查看详细的病历信息，包括医生的诊断证明等。
+
+患者点击预约挂号后，App会显示目前已经注册了的医院的信息，患者可以根据自己的需要授权某家医院，医院拿到患者的授权后，医院下注册的医生就拥有了查看患者病历信息和给患者编写病历的权限。
+
+![image-20190424081643257](https://ws4.sinaimg.cn/large/006tNc79gy1g2derubgdaj30n21ban0c.jpg)
+
+给汕头附一医院授权，若授权成功，App会提示授权成功，反之提示授权失败：
+
+![image-20190424081930550](https://ws4.sinaimg.cn/large/006tNc79gy1g2deupxuhbj30n41aw41p.jpg)
+
+医生登录：
+
+![image-20190424082054660](https://ws4.sinaimg.cn/large/006tNc79gy1g2dew6bk87j30n81b8dkk.jpg)
+
+医生登录成功后会进入医生的主界面：
+
+![image-20190424082128553](https://ws2.sinaimg.cn/large/006tNc79gy1g2dewreehgj30ng1bon38.jpg)
+
+医生端主要可以进行"我要问诊"的操作，点击我要问诊：
+
+![image-20190424082210106](https://ws3.sinaimg.cn/large/006tNc79gy1g2dexhlaslj30nc1b6jvi.jpg)
+
+App上方有一个搜索框，通过输入患者的名称，医生可以查看到患者的历史病历信息：
+
+![image-20190424082320499](https://ws2.sinaimg.cn/large/006tNc79gy1g2deypodwwj30ni1bmah2.jpg)
+
+医生点击某一行的病历信息可以查看到患者以前的就诊信息，包括之前就诊的医院、就诊医生的姓名、就诊时间和以前医生开的处方等信息。医生对患者问诊结束后，点击新增按钮可以给患者新建一份病历，写入此次诊断证明：
+
+![image-20190424082456014](https://ws1.sinaimg.cn/large/006tNc79gy1g2df0d19s8j30ny1c2jzh.jpg)
+
+医生需要填写自己的姓名、所在医院及科室、诊断治疗的时间以及诊断结果和开设的处方信息。医生写入新的病历后，病历会写入到患者拥有的以太坊智能合约内，再次刷新App就可以看到刚才写入的新的病历信息。
 
 
 
